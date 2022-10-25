@@ -17,6 +17,7 @@
         "env": [
           "PROJECT_ID=$PROJECT_ID",
           "_APP_ID=$_APP_ID",
+          "_APP_NAME=$_APP_NAME",
           "_REGION=$_REGION",
           "_SERVICE_ACCOUNT=$_SERVICE_ACCOUNT",
           "_BUCKET_NAME=$_BUCKET_NAME",
