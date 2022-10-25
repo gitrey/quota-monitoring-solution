@@ -15,11 +15,11 @@ Copyright 2022 Google LLC
 */
 
 # Update values
-project_id                 = ""
-region                     = ""
-service_account_email      = ""
+project_id                 = "PROJECT_ID"
+region                     = "_REGION"
+service_account_email      = "_SERVICE_ACCOUNT"
 folders                    = "[]"
 organizations              = "[]"
-alert_log_bucket_name      = ""
-notification_email_address = ""
-threshold                  = ""
+alert_log_bucket_name      = "_BUCKET_NAME"
+notification_email_address = "_NOTIFICATION_EMAIL"
+threshold                  = "_THRESHOLD"
