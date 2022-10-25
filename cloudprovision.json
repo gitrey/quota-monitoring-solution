@@ -84,22 +84,6 @@
       "required": true
     },
     {
-      "param": "_INSTANCE_GIT_REPO_TOKEN",
-      "label": "Instance GitHub Repository Token",
-      "description": "Instance GitHub Repository Token",
-      "type": "string",
-      "required": true,
-      "display": false
-    },
-    {
-      "param": "_API_KEY",
-      "label": "GCP API Key",
-      "description": "GCP API Key",
-      "type": "string",
-      "required": true,
-      "display": false
-    },
-    {
       "param": "_SERVICE_ACCOUNT",
       "label": "Service account",
       "description": "Service account",
