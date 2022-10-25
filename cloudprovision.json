@@ -1,0 +1,164 @@
+{
+  "create": {
+    "steps": [
+      {
+        "id": "clone solution repo",
+        "name": "gcr.io/cloud-builders/git",
+        "entrypoint": "bash",
+        "args": [
+          "-c",
+          "git clone -b feature/enable-cloud-provision https://github.com/gitrey/quota-monitoring-solution.git"
+        ]
+      },
+      {
+        "id": "replace tf vars",
+        "name": "ubuntu",
+        "entrypoint": "bash",
+        "env": [
+          "PROJECT_ID=$PROJECT_ID",
+          "_APP_ID=$_APP_ID",
+          "_REGION=$_REGION",
+          "_SERVICE_ACCOUNT=$_SERVICE_ACCOUNT",
+          "_BUCKET_NAME=$_BUCKET_NAME",
+          "_NOTIFICATION_EMAIL=$_NOTIFICATION_EMAIL",
+          "_THRESHOLD=$_THRESHOLD"
+        ],
+        "args": [
+          "-c",
+          "sed -i s/PROJECT_ID/$PROJECT_ID/g quota-monitoring-solution/terraform/example/terraform.tfvars"
+        ]
+      },
+      {
+        "id": "tf init",
+        "name": "hashicorp/terraform:1.0.0",
+        "entrypoint": "bash",
+        "args": [
+          "-c",
+          "cd quota-monitoring-solution/terraform/example && terraform init"
+        ]
+      }
+    ]
+  },
+  "destroy": {
+    "steps": [
+      {
+        "id": "clone templates",
+        "name": "gcr.io/cloud-builders/git",
+        "entrypoint": "bash",
+        "args": [
+          "-c",
+          "git clone -b feature/enable-cloud-provision https://github.com/gitrey/quota-monitoring-solution.git"
+        ]
+      },
+      {
+        "id": "tf destroy",
+        "name": "hashicorp/terraform:1.0.0",
+        "entrypoint": "bash",
+        "args": [
+          "-c",
+          "echo \"cd quota-monitoring-solution/terraform/example && terraform destroy\""
+        ]
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "param": "_APP_NAME",
+      "label": "Application Name",
+      "description": "Application that will be deployed.",
+      "type": "string",
+      "required": true
+    },
+    {
+      "param": "_REGION",
+      "label": "Application Region",
+      "description": "Where do you want to deploy the application?",
+      "type": "string",
+      "required": true
+    },
+    {
+      "param": "_INSTANCE_GIT_REPO_OWNER",
+      "label": "Instance GitHub Repository Owner",
+      "description": "Instance GitHub Repository Owner",
+      "type": "dropdown",
+      "required": true
+    },
+    {
+      "param": "_INSTANCE_GIT_REPO_TOKEN",
+      "label": "Instance GitHub Repository Token",
+      "description": "Instance GitHub Repository Token",
+      "type": "string",
+      "required": true,
+      "display": false
+    },
+    {
+      "param": "_API_KEY",
+      "label": "GCP API Key",
+      "description": "GCP API Key",
+      "type": "string",
+      "required": true,
+      "display": false
+    },
+    {
+      "param": "_SERVICE_ACCOUNT",
+      "label": "Service account",
+      "description": "Service account",
+      "type": "string",
+      "required": true
+    },
+
+    {
+      "param": "_BUCKET_NAME",
+      "label": "Alerts Bucket Name",
+      "description": "Bucket Name for alert Log Sink",
+      "type": "string",
+      "required": true
+    },
+
+    {
+      "param": "_NOTIFICATION_EMAIL",
+      "label": "Notifications",
+      "description": "Email Address to receive email notifications",
+      "type": "string",
+      "required": true
+    },
+
+    {
+      "param": "_THRESHOLD",
+      "label": "Threshold for all metrics",
+      "description": "Value of threshold for all metrics. If any metric usage >= the threshold, notification will be created",
+      "type": "string",
+      "required": true
+    }
+  ],
+  "outputs": [
+    {
+      "param": "_SERVICE_URL",
+      "label": "Service Url",
+      "description": "Service Url",
+      "type": "string",
+      "required": true
+    },
+    {
+      "param": "_TRIGGER_URL",
+      "label": "Cloud Build Trigger Url",
+      "description": "Cloud Build Trigger Url",
+      "type": "string",
+      "required": true
+    },
+    {
+      "param": "_REPO_URL",
+      "label": "Repo Url",
+      "description": "Repo Url",
+      "type": "string",
+      "required": true
+    },
+    {
+      "param": "_BUILD_URL",
+      "label": "Cloud Build Url",
+      "description": "Cloud Build Url",
+      "type": "string",
+      "required": true
+    }
+  ]
+}
