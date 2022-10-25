@@ -32,7 +32,7 @@
       {
         "id": "tf init",
         "name": "hashicorp/terraform:1.0.0",
-        "entrypoint": "bash",
+        "entrypoint": "sh",
         "args": [
           "-c",
           "cd quota-monitoring-solution/terraform/example && terraform init"
@@ -54,7 +54,7 @@
       {
         "id": "tf destroy",
         "name": "hashicorp/terraform:1.0.0",
-        "entrypoint": "bash",
+        "entrypoint": "sh",
         "args": [
           "-c",
           "echo \"cd quota-monitoring-solution/terraform/example && terraform destroy\""
